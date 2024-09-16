@@ -1,6 +1,5 @@
 package com.eco.fooddelivery.dto;
 
-import com.eco.fooddelivery.model.Client;
 import com.eco.fooddelivery.model.Product;
 
 import lombok.AllArgsConstructor;
@@ -17,8 +16,6 @@ public class OrderDto
     private Long id;
 
     private Product product;
-
-    private Client client;
 
     private boolean isTaking;
     private boolean isDelivery;

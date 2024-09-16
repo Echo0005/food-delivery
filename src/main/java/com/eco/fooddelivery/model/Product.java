@@ -7,13 +7,15 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
+@Table( name = "product" )
 @Getter
 @Setter
 @NoArgsConstructor
@@ -27,6 +29,6 @@ public class Product
     private String name;
     private String img;
 
-    @OneToMany(mappedBy = "orders")
+    @ManyToMany
     private Set<Order> orders;
 }
