@@ -34,56 +34,56 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException
     {
-//        try {
-//            Thread.sleep(500);
-//        } catch (InterruptedException e) {
-//            throw new RuntimeException(e);
-//        }
-        //Authorization
-
+        // Authorization
         String requestHeader = request.getHeader("Authorization");
 
-        //Bearer 2352345235sdfrsfgsdfsdf
-
+        // Bearer 1234567890abcdefghijklmnopqrstuvwxyz
         logger.info(" Header :  {}", requestHeader);
 
         String username = null;
         String token = null;
 
-        if (requestHeader != null && requestHeader.startsWith("Bearer")) {
-            //looking good
+        if (requestHeader != null && requestHeader.startsWith("Bearer"))
+        {
+            // Looking good
             token = requestHeader.substring(7);
-            try {
-
+            try
+            {
                 username = this.jwtHelper.getUsernameFromToken(token);
-
-            } catch (IllegalArgumentException e) {
+            } 
+            catch (IllegalArgumentException e)
+            {
                 logger.info("Illegal Argument while fetching the username !!");
                 e.printStackTrace();
-            } catch (ExpiredJwtException e) {
+            }
+            catch (ExpiredJwtException e)
+            {
                 logger.info("Given jwt token is expired !!");
                 e.printStackTrace();
-            } catch (MalformedJwtException e) {
+            }
+            catch (MalformedJwtException e)
+            {
                 logger.info("Some changed has done in token !! Invalid Token");
                 e.printStackTrace();
-            } catch (Exception e) {
+            } catch (Exception e)
+            {
                 e.printStackTrace();
-
             }
-
-
-        } else {
+        }
+        else
+        {
             logger.info("Invalid Header Value !! ");
         }
         //
-        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            //fetch user detail from username
+        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null)
+        {
+            // Fetch user detail from username
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
             Boolean validateToken = this.jwtHelper.validateToken(token, userDetails);
 
             if ( validateToken )
             {
-                //set the authentication
+                // Set the authentication
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authentication);
