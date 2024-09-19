@@ -27,6 +27,11 @@ public class UserService
         return iUserRepository.findAll();
     }
 
+    public User findById( Long id )
+    {
+        return iUserRepository.findById( id ).orElseThrow();
+    }
+
     public User createUserAdmin( User user )
     {
         user.setPassword( passwordEncoder.encode( user.getPassword() ) );
