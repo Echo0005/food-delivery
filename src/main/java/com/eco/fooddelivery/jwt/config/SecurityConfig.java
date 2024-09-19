@@ -43,11 +43,14 @@ public class SecurityConfig
                 .cors( cors -> cors.disable() )
                 
                 .authorizeHttpRequests
-                    ( auth -> auth.requestMatchers("/auth/login").permitAll()
-                                  .requestMatchers("/auth/create-user").permitAll()
-                                  // Example: .requestMatchers("/home/admin","/question/upload").hasAuthority(Role.ADMIN.name())
-                                  // Example: .requestMatchers("/home/user").hasAuthority(Role.USER.name())
-                                  .anyRequest().authenticated() )
+                (
+                    auth -> auth
+                        .requestMatchers("/auth/login", "/auth/create-user").permitAll()
+                        .requestMatchers("/orders/all", "/products/create","/products/edit", "/products/delete").hasAuthority(Role.ADMIN.name())
+                        .requestMatchers("/orders/create", "/orders/edit", "/orders/delete").hasAuthority(Role.USER.name())
+
+                        .anyRequest().authenticated()
+                )
                 
                 .exceptionHandling( ex -> ex.authenticationEntryPoint(point) )
                 .sessionManagement( session -> session.sessionCreationPolicy( SessionCreationPolicy.STATELESS ) );
