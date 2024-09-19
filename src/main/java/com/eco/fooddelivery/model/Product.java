@@ -2,6 +2,8 @@ package com.eco.fooddelivery.model;
 
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -27,8 +29,11 @@ public class Product
     @Column( name = "product_id" )
     private Long id;
     private String name;
+    private String description;
     private String img;
+    private Integer price;
 
+    @JsonIgnore
     @ManyToMany
     private Set<Order> orders;
 }

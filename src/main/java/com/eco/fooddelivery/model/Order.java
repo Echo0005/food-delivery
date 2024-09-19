@@ -1,6 +1,8 @@
 package com.eco.fooddelivery.model;
 
-import java.util.Set;
+import java.util.List;
+
+import com.eco.fooddelivery.jwt.model.User;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -36,13 +39,13 @@ public class Order
         joinColumns = @JoinColumn(name = "order_id"),
         inverseJoinColumns = @JoinColumn(name = "product_id")
     )
-    private Set<Product> products;
+    private List<Product> products;
 
-    /*
     @ManyToOne
-    @JoinColumn( name = "client_id", nullable = false )
-    private Client client;
-    */
+    @JoinColumn(name="user_id", nullable=false)
+    private User user;
+
+    private String date;
 
     private boolean isTaking;
     private boolean isDelivery;
