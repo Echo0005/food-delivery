@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.eco.fooddelivery.dto.OrderDto;
+import com.eco.fooddelivery.dto.UserDto;
 import com.eco.fooddelivery.jwt.model.User;
 import com.eco.fooddelivery.jwt.service.UserService;
 import com.eco.fooddelivery.model.Order;
@@ -20,7 +21,6 @@ public class OrderService
     private IOrderRepository iOrderRepository;
     private UserService userService;
     private ProductService productService;
-
 
     public OrderService
     (
@@ -37,6 +37,29 @@ public class OrderService
     public List<OrderDto> findAll()
     {
         List<Order> orders = iOrderRepository.findAll();
+
+        List<OrderDto> orderDto = new ArrayList<>();
+
+        OrderDto orderAux = new OrderDto();
+
+        for ( Order order : orders )
+        {
+            orderAux.setClientId( order.getUser().getUserId() );
+            orderAux.setDelivery( order.isDelivery() );
+            orderAux.setId( order.getId() );
+            orderAux.setProductList( order.getProducts() );
+            orderAux.setTaking( order.isTaking() );
+            orderAux.setUserName( order.getUser().getUsername() );
+
+            orderDto.add( orderAux );
+        }
+
+        return orderDto;
+    }
+
+    public List<OrderDto> findAllWhithUser( UserDto userDto )
+    {
+        List<Order> orders = iOrderRepository.findByuser_userId( userDto.getId() );
 
         List<OrderDto> orderDto = new ArrayList<>();
 
