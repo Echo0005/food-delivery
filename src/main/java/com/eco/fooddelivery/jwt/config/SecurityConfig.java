@@ -46,6 +46,8 @@ public class SecurityConfig
                 (
                     auth -> auth
                         .requestMatchers("/auth/login", "/auth/create-user").permitAll()
+                        .requestMatchers( "/products/all" ).authenticated()
+                        .requestMatchers( "/orders/all-user" ).authenticated()
                         .requestMatchers("/orders/all", "/products/create","/products/edit", "/products/delete").hasAuthority(Role.ADMIN.name())
                         .requestMatchers("/orders/create", "/orders/edit", "/orders/delete").hasAuthority(Role.USER.name())
 
