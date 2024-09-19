@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.eco.fooddelivery.dto.Message;
 import com.eco.fooddelivery.dto.OrderDto;
+import com.eco.fooddelivery.dto.UserDto;
 import com.eco.fooddelivery.model.Order;
 import com.eco.fooddelivery.service.OrderService;
 
@@ -34,6 +35,13 @@ public class OrderController
     {
         List<OrderDto> orders = orderService.findAll();
         return new ResponseEntity<>( orders, HttpStatus.FOUND );
+    }
+
+    @GetMapping("/all-user")
+    public ResponseEntity< List<OrderDto> > getAllOrdersFromUser( @RequestBody UserDto userDto )
+    {
+        List<OrderDto> ordersOfUser = orderService.findAllWhithUser( userDto );
+        return new ResponseEntity<>( ordersOfUser, HttpStatus.FOUND );
     }
 
     @PostMapping("/create")
