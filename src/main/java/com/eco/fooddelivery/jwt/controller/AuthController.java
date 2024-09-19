@@ -43,9 +43,10 @@ public class AuthController
     }
 
     @PostMapping("/create-user")
-    public User createUser( @RequestBody User user )
+    public ResponseEntity<?> createUser( @RequestBody User user )
     {
-        return userService.createUser( user );
+        userService.createUser( user );
+        return new ResponseEntity<>( HttpStatus.OK );
     }
 
     @PostMapping("/login")
