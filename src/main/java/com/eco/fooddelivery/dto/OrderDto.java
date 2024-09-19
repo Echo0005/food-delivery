@@ -1,5 +1,8 @@
 package com.eco.fooddelivery.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.eco.fooddelivery.model.Product;
 
 import lombok.AllArgsConstructor;
@@ -15,7 +18,11 @@ public class OrderDto
 {
     private Long id;
 
-    private Product product;
+    private Long clientId;
+    private String userName;
+
+    private ArrayList<Long> productsIds;
+    private List<Product> productList;
 
     private boolean isTaking;
     private boolean isDelivery;
