@@ -20,6 +20,7 @@ public class OrderDto
 
     private Long clientId;
     private String userName;
+    private String date;
 
     private ArrayList<Long> productsIds;
     private List<Product> productList;

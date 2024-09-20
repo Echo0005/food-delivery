@@ -50,6 +50,7 @@ public class OrderService
             orderAux.setProductList( order.getProducts() );
             orderAux.setTaking( order.isTaking() );
             orderAux.setUserName( order.getUser().getUsername() );
+            orderAux.setDate( order.getDate() );
 
             orderDto.add( orderAux );
         }
