@@ -112,7 +112,7 @@ Mientras los User son los clientes. Pueden ver la lista de producto, crear Órde
     - Cuando creamos (POST): Contiene el Id y Username del Cliente creador, además de un array con los Id's de los Productos.
     - Cuando queremos ver (GET): Misma estructura que en el POST solo que llevara una List con objetos Product en sí.
 
-### Recursos
+## Recursos
 
 **Postman:** en la carpeta `src\test\postman` se encuentra un Json con todas las request utilizadas para testear este proyecto.
 
